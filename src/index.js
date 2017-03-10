@@ -1,0 +1,28 @@
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter, Match, Miss } from 'react-router';
+
+ // Webpack will pick up CSS files
+import './css/style.css';
+
+import App from './components/App';
+import StorePicker from './components/StorePicker';
+import NotFound from './components/NotFound'
+
+const Root = () => {
+  return (
+    <BrowserRouter>
+      <div>
+        <Match exactly pattern="/" component={StorePicker} />
+        <Match pattern="/store/:storeId" component={App} />
+        <Miss component={NotFound} />
+      </div>
+    </BrowserRouter>
+  )
+}
+
+StorePicker.contextTypes = {
+  router: React.PropTypes.object
+};
+
+render(<Root />, document.querySelector('#main'));
